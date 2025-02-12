@@ -10,9 +10,12 @@
     />
     <link rel="shortcut icon" type="image/png" href="./img/heart.svg" />
     <link rel="stylesheet" href="style/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   </head>
 
   <body>
+    <div class="heart-bg"></div>
+    <div class="floating-hearts"></div>
     <div class="container">
       <div class="one">
         <h1 class="one">
@@ -22,12 +25,12 @@
         <p class="two" id="greetingText">I really like your name btw!</p>
       </div>
       <div class="three">
-        <p>It's Valentine!!! :D</p>
+        <p>It's Valentine Day!!! You gay!!</p>
       </div>
       <div class="four">
         <div class="text-box">
           <p class="hbd-chatbox">
-            Happy Valentine's Day!! Yeee! Love and blah blah...
+            Happy Valentine's Day!! You are gay! HAHAHA...
           </p>
           <p class="fake-btn">Send</p>
         </div>
@@ -38,6 +41,7 @@
         <p class="idea-3">
           I realised, I wanted to do something <strong>special</strong>.
         </p>
+        <video id="catVideo" src="cat.mp4" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 80vw; max-height: 80vh; z-index: 1000;"></video>
         <p class="idea-4">Because,</p>
         <p class="idea-5">
           You are Special
@@ -51,7 +55,7 @@
       <div class="six">
         <img src="img/vector.jpg" alt="" class = "girl-dp" id="imagePath" />
         <div class="wish">
-          <h3 class="wish-hbd">Happy Valentine's Day Gorgeous</h3>
+          <h3 class="wish-hbd">Happy Valentine's Day Nuuuubi</h3>
           <h5 id="wishText">kuch kuch</h5>
         </div>
       </div>
@@ -124,14 +128,69 @@
         </svg>
       </div>
       <div class="nine">
-        <p>Okay, now come back and tell me if you liked it.</p>
-        <p id="replay">Or click, if you want to watch it again.</p>
+        <p>Lomantic or not :)?</p>
+        <p id="replay">You can play it again if you want</p>
         <p class="last-smile">:)</p>
       </div>
+    
+    <!-- Add audio player and control button -->
+    <audio id="backgroundMusic" src="meow.mp3" loop></audio>
+    <button id="musicControl" class="music-control">
+      <span class="play">▶</span>
+      <span class="pause">⏸</span>
+    </button>
     </div>
-  </body>
 
-  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
-  <script type="text/babel" src="script/main.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+    <script type="text/babel" src="script/main.js"></script>
+    <script>
+      function createFloatingHearts() {
+        const container = document.querySelector('.floating-hearts');
+        
+        // Create 20 hearts
+        for (let i = 0; i < 20; i++) {
+          const span = document.createElement('span');
+          span.className = 'floating-heart';
+          span.innerHTML = '❤'; // Using only one type of heart
+          
+          span.style.left = Math.random() * 100 + 'vw';
+          span.style.animationDelay = Math.random() * 15 + 's';
+          span.style.fontSize = Math.random() * 20 + 10 + 'px';
+          
+          container.appendChild(span);
+        }
+      }
+      createFloatingHearts();
+
+      // Simplified click effect
+      document.addEventListener('click', (e) => {
+        const heart = document.createElement('span');
+        heart.className = 'floating-heart';
+        heart.innerHTML = '❤';
+        heart.style.left = e.clientX + 'px';
+        heart.style.top = e.clientY + 'px';
+        heart.style.fontSize = '20px';
+        heart.style.position = 'fixed';
+        heart.style.animation = 'heartRain 4s linear forwards';
+        document.querySelector('.floating-hearts').appendChild(heart);
+        
+        setTimeout(() => heart.remove(), 4000);
+      });
+
+      // Audio control
+      const musicBtn = document.getElementById('musicControl');
+      const audio = document.getElementById('backgroundMusic');
+      
+      musicBtn.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play();
+          musicBtn.classList.add('playing');
+        } else {
+          audio.pause();
+          musicBtn.classList.remove('playing');
+        }
+      });
+    </script>
+  </body>
 </html>

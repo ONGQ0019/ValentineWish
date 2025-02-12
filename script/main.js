@@ -30,7 +30,14 @@ const animationTimeline = () => {
 
   tl.to(".container", 0.1, {
     visibility: "visible",
+    scale: 0.8,
+    opacity: 0,
   })
+    .to(".container", 0.5, {
+      scale: 1,
+      opacity: 1,
+      ease: Elastic.easeOut.config(1, 0.75)
+    })
     .from(".one", 0.7, {
       opacity: 0,
       y: 10,
@@ -110,6 +117,15 @@ const animationTimeline = () => {
       x: 10,
       backgroundColor: "rgb(21, 161, 237)",
       color: "#fff",
+      onComplete: function() {
+        const video = document.getElementById('catVideo');
+        video.style.display = 'block';
+        video.play();
+        // Hide video after it ends
+        video.onended = function() {
+          video.style.display = 'none';
+        };
+      }
     })
     .to(".idea-3", 0.7, ideaTextTransLeave, "+=1.5")
     .from(".idea-4", 0.7, ideaTextTrans)
@@ -183,13 +199,14 @@ const animationTimeline = () => {
     )
     .from(
       ".girl-dp",
-      0.5,
+      1.5,
       {
-        scale: 3.5,
+        scale: 0.8,
         opacity: 0,
         x: 25,
         y: -25,
-        rotationZ: -45,
+        rotationZ: -5,
+        ease: Power2.easeOut
       },
       "-=2"
     )
@@ -222,7 +239,7 @@ const animationTimeline = () => {
       {
         scale: 1,
         rotationY: 0,
-        color: "#ff69b4",
+        color: "#ff4d6d",
         ease: Expo.easeOut,
       },
       0.1,
